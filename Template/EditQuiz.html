@@ -1,0 +1,527 @@
+{% extends 'base.html' %}
+<!-- Page Heading -->
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Edit Quiz: <small>{{topic}} - {{section}}</small>
+        </h1>
+
+    </div>
+</div>
+<form action="/marlin/UpdateQuizData/{{section}}/{{subject}}/{{date}}" method="POST">
+    {% csrf_token %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading"0>
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i>Quiz Data</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group col-lg-6">
+                        <label for="email">Quiz Topic:</label>
+                        <input type="text" class="form-control" name="topic" value={{topic}}>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="email">Quiz Date:</label>
+                        <input type="date" class="form-control" name="dates" value={{date}}>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="sel1">Section:</label>
+                        {% if request.session.type != "Teacher" %}
+                        <select class="form-control" name="sec">
+                            {% if section == "N1" %}
+                            <option selected value="N1">N1</option>
+                            <option value="ZC11">ZC11</option>
+                            <option value="ZT11">ZT11</option>
+                            <option value="ZT12">ZT12</option>
+                            <option value="ZT13">ZC13</option>
+                            {% elif section == "ZC11" %}
+                            <option  value="N1">N1</option>
+                            <option selected value="ZC11">ZC11</option>
+                            <option value="ZT11">ZT11</option>
+                            <option value="ZT12">ZT12</option>
+                            <option value="ZT13">ZC13</option>
+                            {% elif section == "ZT11" %}
+                            <option  value="N1">N1</option>
+                            <option  value="ZC11">ZC11</option>
+                            <option selected value="ZT11">ZT11</option>
+                            <option value="ZT12">ZT12</option>
+                            <option value="ZT13">ZC13</option>
+                            {% elif section == "ZT12" %}
+                            <option  value="N1">N1</option>
+                            <option  value="ZC11">ZC11</option>
+                            <option  value="ZT11">ZT11</option>
+                            <option selected value="ZT12">ZT12</option>
+                            <option value="ZT13">ZC13</option>
+                            {% elif section == "ZT13" %}
+                            <option  value="N1">N1</option>
+                            <option  value="ZC11">ZC11</option>
+                            <option  value="ZT11">ZT11</option>
+                            <option  value="ZT12">ZT12</option>
+                            <option selected value="ZT13">ZT13</option>
+                            {% endif %}
+                        </select>
+                        {% else %}
+                        <h4>{{section}}</h4>
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="email">Subject:</label>
+                        {% if request.session.type != "Teacher" %}
+                        <select class="form-control" name="sub">
+                            {% if subject == "ICST101" %}
+                            <option selected value="ICST101">ICST101</option>
+                            <option value="CSDC101">CSDC101</option>
+                            {% else %}
+                            <option value="ICST101">ICST101</option>
+                            <option selected value="CSDC101">CSDC101</option>
+                            {% endif %}
+                        </select>
+                        {% else %}
+                        <h4>{{subject}}</h4>
+                        <input type="hidden" name="sub" value="{{subject}}">
+                        <input type="hidden" name="sec" value="{{section}}">
+                        {% endif %}
+
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Item 1</h3>
+                </div>
+                <form  action="/marlin/updateItem/{{section}}/{{subject}}/{{date}}/Item1/" method="POST">
+                    {% csrf_token %}
+                    <div class="panel-body">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="email">Question:</label>
+                                <textarea class="form-control" rows="3" cols="40" id="comment" name="Q1">{{q1}}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            {% if t1 == "I" %}
+                                <label for="email">Answer:</label>
+                                <input type="text" name="Answer" class="form-control" value="{{A1}}">
+                            {% elif t1 == "TF" %}
+                            <div class="form-group">
+                                  <label for="sel1">Select list (select one):</label>
+                                  <select class="form-control" id="sel1" name="Tf_Answer1">
+                                {% if A1 == "T"%}
+                                    <option value="T" selected>True</option>
+                                    <option value="F" >False</option>
+                                    {% elif A1 == "F"%}
+                                    <option value="T" >True</option>
+                                    <option value="F" selected>False</option>
+                                    {% endif %}
+                                    </select>
+                            </div>
+                            {% elif t1 == "MC" %}
+                                <strong>Choices:</strong>
+                                <div class="radio">
+                                    <label for="">A:</label>
+                                    <input type="text" name="item2Op1" id="" value="{{Option1in1}}">
+                                    {% if A1 == "A" %}
+                                    <label><input type="radio" name="optradio5" value="A" checked></label>
+                                    {% else %}
+                                    <label><input type="radio" name="optradio5" value="A" ></label>
+                                    {% endif %}
+
+                                </div>
+                                <div class="radio">
+                                    <label for="">B:</label>
+                                    <input type="text" name="item2Op2" id="" value="{{Option1in2}}">
+                                     {% if A1 == "B" %}
+                                    <label><input type="radio" name="optradio5" value="B" checked></label>
+                                    {% else %}
+                                    <label><input type="radio" name="optradio5" value="B" ></label>
+                                    {% endif %}
+                                </div>
+                                <div class="radio disabled">
+                                    <label for="">C:</label>
+                                    <input type="text" name="item2Op3" id="" value="{{Option1in3}}">
+                                    {% if A1 == "C" %}
+                                    <label><input type="radio" name="optradio5" value="C" checked></label>
+                                    {% else %}
+                                    <label><input type="radio" name="optradio5" value="C" ></label>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-12" >
+                            {% if t1 == "I" %}
+                            <label for="email">Type:</label>
+                                <p>Identification</p>
+                            {% elif t1 == "TF" %}
+                                <label for="email">Type:</label>
+                                <p>True or False</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-12" >
+                            <hr>
+                        </div>
+                        <div class="col-lg-12 text-center" >
+                            <input type="submit" value="Save" class="btn btn-success">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Item 2</h3>
+                </div>
+                <form  action="/marlin/updateItem/{{section}}/{{subject}}/{{date}}/Item2/" method="POST">
+                    {% csrf_token %}
+
+                    <div class="panel-body">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="email">Question:</label>
+                                <textarea class="form-control" rows="3" cols="40" id="comment" name="Q1">{{q2}}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            {% if t2 == "I" %}
+                                <label for="email">Answer:</label>
+                                <input type="text" name="Answer" class="form-control" value="{{A2}}">
+                            {% elif t2 == "TF" %}
+                            <div class="form-group">
+                                  <label for="sel1">Select list (select one):</label>
+                                  <select class="form-control" id="sel1" name="Tf_Answer1">
+                                {% if A2 == "T"%}
+                                    <option value="T" selected>True</option>
+                                    <option value="F" >False</option>
+                                    {% elif A2 == "F"%}
+                                    <option value="T" >True</option>
+                                    <option value="F" selected>False</option>
+                                    {% endif %}
+                                    </select>
+                            </div>
+                            {% elif t2 == "MC" %}
+                                <strong>Choices:</strong>
+                                <div class="radio">
+                                    <label for="">A:</label>
+                                    <input type="text" name="item2Op1" id="" value="{{Option2in1}}">
+                                    {% if A2 == "A" %}
+                                    <label><input type="radio" name="optradio5" value="A" checked></label>
+                                    {% else %}
+                                    <label><input type="radio" name="optradio5" value="A" ></label>
+                                    {% endif %}
+
+                                </div>
+                                <div class="radio">
+                                    <label for="">B:</label>
+                                    <input type="text" name="item2Op2" id="" value="{{Option2in2}}">
+                                     {% if A2 == "B" %}
+                                    <label><input type="radio" name="optradio5" value="B" checked></label>
+                                    {% else %}
+                                    <label><input type="radio" name="optradio5" value="B" ></label>
+                                    {% endif %}
+                                </div>
+                                <div class="radio disabled">
+                                    <label for="">C:</label>
+                                    <input type="text" name="item2Op3" id="" value="{{Option2in3}}">
+                                    {% if A2 == "C" %}
+                                    <label><input type="radio" name="optradio5" value="C" checked></label>
+                                    {% else %}
+                                    <label><input type="radio" name="optradio5" value="C" ></label>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-12">
+                            {% if t2 == "I" %}
+                                <label for="email">Type:</label>
+                                <p>Identification</p>
+                            {% elif t2 == "TF" %}
+                                <label for="email">Type:</label>
+                                <p>True or False</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-12" >
+                            <hr>
+                        </div>
+                        <div class="col-lg-12 text-center" >
+                            <input type="submit" value="Save" class="btn btn-success">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Item 3</h3>
+                </div>
+                <form  action="/marlin/updateItem/{{section}}/{{subject}}/{{date}}/Item3/" method="POST">
+                    {% csrf_token %}
+                    <div class="panel-body">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="email">Question:</label>
+                                <textarea class="form-control" rows="3" cols="40" id="comment"name="Q1">{{q3}}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            {% if t3 == "I" %}
+                                <label for="email">Answer:</label>
+                                <input type="text" name="Answer" class="form-control" value="{{A3}}">
+                            {% elif t3 == "TF" %}
+                                <div class="form-group">
+                                  <label for="sel1">Select list (select one):</label>
+                                  <select class="form-control" id="sel1" name="Tf_Answer1">
+                                    {% if A3 == "T"%}
+                                    <option value="T" selected>True</option>
+                                    <option value="F" >False</option>
+                                    {% elif A3 == "F"%}
+                                    <option value="T" >True</option>
+                                    <option value="F" selected>False</option>
+                                    {% endif %}
+                                  </select>
+                                 </div>
+                            {% elif t3 == "MC" %}
+                                <strong>Choices:</strong>
+                                <div class="radio">
+                                    <label for="">A:</label>
+                                    <input type="text" name="item2Op1" id="" value="{{Option3in1}}">
+                                    {% if A3 == "A" %}
+                                    <label><input type="radio" name="optradio5" value="A" checked></label>
+                                    {% else %}
+                                    <label><input type="radio" name="optradio5" value="A" ></label>
+                                    {% endif %}
+
+                                </div>
+                                <div class="radio">
+                                    <label for="">B:</label>
+                                    <input type="text" name="item2Op2" id="" value="{{Option3in2}}">
+                                     {% if A3 == "B" %}
+                                    <label><input type="radio" name="optradio5" value="B" checked></label>
+                                    {% else %}
+                                    <label><input type="radio" name="optradio5" value="B" ></label>
+                                    {% endif %}
+                                </div>
+                                <div class="radio disabled">
+                                    <label for="">C:</label>
+                                    <input type="text" name="item2Op3" id="" value="{{Option3in3}}">
+                                    {% if A3 == "C" %}
+                                    <label><input type="radio" name="optradio5" value="C" checked></label>
+                                    {% else %}
+                                    <label><input type="radio" name="optradio5" value="C" ></label>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-12">
+                            {% if t3 == "I" %}
+                                <label for="email">Type:</label>
+                                <p>Identification</p>
+                            {% elif t3 == "TF" %}
+                                <label for="email">Type:</label>
+                                <p>True or False</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-12" >
+                            <hr>
+                        </div>
+                        <div class="col-lg-12 text-center" >
+                            <input type="submit" value="Save" class="btn btn-success">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Item 4</h3>
+                </div>
+                <form  action="/marlin/updateItem/{{section}}/{{subject}}/{{date}}/Item4/" method="POST">
+                    {% csrf_token %}
+
+                    <div class="panel-body">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="email">Question:</label>
+                                <textarea class="form-control" rows="3" cols="40" id="comment" name="Q1">{{q4}}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            {% if t4 == "I" %}
+                                <label for="email">Answer:</label>
+                                <input type="text" name="Answer" class="form-control" value="{{A4}}">
+                            {% elif t4 == "TF" %}
+                                <div class="form-group">
+                                      <label for="sel1">Select list (select one):</label>
+                                      <select class="form-control" id="sel1" name="Tf_Answer1">
+                                    {% if A4 == "T"%}
+                                        <option value="T" selected>True</option>
+                                        <option value="F" >False</option>
+                                        {% elif A4 == "F"%}
+                                        <option value="T" >True</option>
+                                        <option value="F" selected>False</option>
+                                    {% endif %}
+                                        </select>
+                                </div>
+                            {% elif t4 == "MC" %}
+                                <strong>Choices:</strong>
+                                <div class="radio">
+                                    <label for="">A:</label>
+                                    <input type="text" name="item2Op1" id="" value="{{Option4in1}}">
+                                    {% if A4 == "A" %}
+                                    <label><input type="radio" name="optradio5" value="A" checked></label>
+                                    {% else %}
+                                    <label><input type="radio" name="optradio5" value="A" ></label>
+                                    {% endif %}
+
+                                </div>
+                                <div class="radio">
+                                    <label for="">B:</label>
+                                    <input type="text" name="item2Op2" id="" value="{{Option4in2}}">
+                                     {% if A4 == "B" %}
+                                    <label><input type="radio" name="optradio5" value="B" checked></label>
+                                    {% else %}
+                                    <label><input type="radio" name="optradio5" value="B" ></label>
+                                    {% endif %}
+                                </div>
+                                <div class="radio disabled">
+                                    <label for="">C:</label>
+                                    <input type="text" name="item2Op3" id="" value="{{Option4in3}}">
+                                    {% if A4 == "C" %}
+                                    <label><input type="radio" name="optradio5" value="C" checked></label>
+                                    {% else %}
+                                    <label><input type="radio" name="optradio5" value="C" ></label>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-12">
+                            {% if t4 == "I" %}
+                                <label for="email">Type:</label>
+                                <p>Identification</p>
+                            {% elif t4 == "TF" %}
+                                <label for="email">Type:</label>
+                                <p>True or False</p>
+                            {% elif t4 == "MC" %}
+                                <label for="email">Type:</label>
+                                <p>Multiple Choice</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-12" >
+                            <hr>
+                        </div>
+                        <div class="col-lg-12 text-center" >
+                            <input type="submit" value="Save" class="btn btn-success">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Item 5</h3>
+                </div>
+                <form  action="/marlin/updateItem/{{section}}/{{subject}}/{{date}}/Item5/" method="POST">
+                    {% csrf_token %}
+
+                    <div class="panel-body">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="email">Question:</label>
+                                <textarea class="form-control" rows="3" cols="40" id="comment" name="Q1">{{q5}}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            {% if t5 == "I" %}
+                                <label for="email">Answer:</label>
+                                <input type="text" name="Answer" class="form-control" value="{{A5}}">
+                            {% elif t5 == "TF" %}
+                            <div class="form-group">
+                                  <label for="sel1">Select list (select one):</label>
+                                  <select class="form-control" id="sel1" name="Tf_Answer1">
+                                {% if A5 == "T"%}
+                                    <option value="T" selected>True</option>
+                                    <option value="F" >False</option>
+                                {% elif A5 == "F"%}
+                                    <option value="T" >True</option>
+                                    <option value="F" selected>False</option>
+                                {% endif %}
+                                    </select>
+                            </div>
+                            {% elif t5 == "MC" %}
+                                <strong>Choices:</strong>
+                                <div class="radio">
+                                    <label for="">A:</label>
+                                    <input type="text" name="item2Op1" id="" value="{{Option5in1}}">
+                                    {% if A5 == "A" %}
+                                    <label><input type="radio" name="optradio5" value="A" checked></label>
+                                    {% else %}
+                                    <label><input type="radio" name="optradio5" value="A" ></label>
+                                    {% endif %}
+
+                                </div>
+                                <div class="radio">
+                                    <label for="">B:</label>
+                                    <input type="text" name="item2Op2" id="" value="{{Option5in2}}">
+                                     {% if A5 == "B" %}
+                                    <label><input type="radio" name="optradio5" value="B" checked></label>
+                                    {% else %}
+                                    <label><input type="radio" name="optradio5" value="B" ></label>
+                                    {% endif %}
+                                </div>
+                                <div class="radio disabled">
+                                    <label for="">C:</label>
+                                    <input type="text" name="item2Op3" id="" value="{{Option5in3}}">
+                                    {% if A5 == "C" %}
+                                    <label><input type="radio" name="optradio5" value="C" checked></label>
+                                    {% else %}
+                                    <label><input type="radio" name="optradio5" value="C" ></label>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-12">
+                            {% if t5 == "I" %}
+                                <label for="email">Type:</label>
+                                <p>Identification</p>
+                            {% elif t5 == "TF" %}
+                                <label for="email">Type:</label>
+                                <p>True or False</p>
+                            {% elif t5 == "MC" %}
+                                <label for="email">Type:</label>
+                                <p>Multiple Choice</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-12" >
+                            <hr>
+                        </div>
+                        <div class="col-lg-12 text-center" >
+                            <input type="submit" value="Save" class="btn btn-success">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.row -->
+
+<!-- /.row -->
+{% endblock %}

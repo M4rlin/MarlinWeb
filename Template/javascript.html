@@ -1,0 +1,600 @@
+{% load staticfiles %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/moment.min.js'></script>
+<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery.min.js'></script>
+<script src="http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery-ui.custom.min.js"></script>
+
+
+
+  <!-- jQuery -->
+  <script src="{% static 'js/jquery.js'%}"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="{% static 'js/bootstrap.min.js'%}"></script>
+
+
+ <!-- Morris Charts JavaScript -->
+ <script src="{% static 'js/plugins/morris/raphael.min.js'%}"></script>
+ <script src="{% static 'js/plugins/morris/morris.min.js'%}"></script>
+ <script src="{% static 'js/plugins/morris/morris-data.js'%}"></script>
+ <script src="{% static 'js/items.js'%}"></script>
+ <script src="{% static 'js/addanswer.js'%}"></script>
+ <script src="{% static 'js/plugins/morris/raphael.min.js'%}"></script>
+ <script src="{% static 'js/plugins/morris/morris.min.js'%}"></script>
+ <script src="{% static 'js/plugins/morris/morris-data.js'%}"></script>
+
+<script src="{% static 'js/plugins/flot/jquery.flot.js'%}"></script>
+<script src="{% static 'js/plugins/flot/jquery.flot.tooltip.min.js'%}"></script>
+<script src="{% static 'js/plugins/flot/jquery.flot.resize.js'%}"></script>
+<script src="{% static 'js/plugins/flot/jquery.flot.pie.js'%}"></script>
+<script src="{% static 'js/plugins/flot/flot-data.js'%}"></script>
+<script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+</script>
+{% if request.session.type == "Admin" %}
+<script>
+    var total = "{{ list1 }}";
+    var total1 = "{{ Ulist1 }}";
+    var Dismissed = "{{ dimissed1 }}";
+    var canswer = "{{ CorrectAns1 }}"
+    var nasnswer = "{{ NotCorrectAns1 }}"
+
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ["Unanswered", "Dismissed","Correct","Incorrect"],
+            datasets: [
+            {
+                label: "Correctly Answered",
+                backgroundColor: [
+                    //violet
+                    'rgba(66, 15, 250, 0.50)',
+                    // yellow
+                    'rgba(220, 184, 4, 0.50)',
+                    //green
+                    'rgba(124, 232, 23, 0.46)',
+                    //red
+                    'rgba(175, 29, 4, 0.45)',
+
+                ],
+                borderColor: [
+                    // 'rgba(0,100,0, 0.6)',
+                    // 'rgba(255,99,132,1)',
+                    // 'rgba(255, 255, 140, 1)',
+                ],
+                borderWidth: 1,
+                data: [total1,Dismissed,canswer,nasnswer],
+            },
+            // {
+            //     label: "Correctly Answered",
+            //     backgroundColor: [
+            //         'rgba(0,0,0, 0.6)',
+            //         'rgba(0,0,0, 0.6)',
+            //         //green
+            //         'rgba(124, 232, 23, 0.46)',
+            //         //red
+            //         'rgba(175, 29, 4, 0.45)',
+            //     ],
+            //     borderColor: [
+            //         // 'rgba(0,0,0, 0.6)',
+            //         // 'rgba(0,0,0, 0.6)',
+            //         // 'rgba(0,0,0, 0.6)',
+            //         // 'rgba(35, 130, 116,.8)',
+            //         // 'rgba(150, 50, 180, 0.6)',
+            //     ],
+            //     borderWidth: 1,
+            //     data: [0,0,canswer,nasnswer],
+            // },
+        ]
+        },
+        options: {
+        }
+    });
+    </script>
+
+<script>
+    var total = "{{ list2 }}";
+    var total1 = "{{ Ulist2 }}";
+    var Dismissed = "{{ dimissed2 }}";
+    var canswer = "{{ CorrectAns2 }}"
+    var nasnswer = "{{ NotCorrectAns2 }}"
+
+    var ctx = document.getElementById("myChart1").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: [ "Unanswered", "Dismissed","Correct","Incorrect"],
+            datasets: [
+            {
+                label: "Correctly Answered",
+                backgroundColor: [
+                    //violet
+                    'rgba(66, 15, 250, 0.50)',
+                    // yellow
+                    'rgba(220, 184, 4, 0.50)',
+                    //green
+                    'rgba(124, 232, 23, 0.46)',
+                    //red
+                    'rgba(175, 29, 4, 0.45)',
+                ],
+                borderColor: [
+                    // 'rgba(0,100,0, 0.6)',
+                    // 'rgba(255,99,132,1)',
+                    // 'rgba(255, 255, 140, 1)',
+                ],
+                borderWidth: 1,
+                data: [total1,Dismissed,canswer,nasnswer],
+            },
+            // {
+            //     label: "Correctly Answered",
+            //     backgroundColor: [
+            //         'rgba(0,0,0, 0.6)',
+            //         'rgba(0,0,0, 0.6)',
+            //         //green
+            //         'rgba(124, 232, 23, 0.46)',
+            //         //red
+            //         'rgba(175, 29, 4, 0.45)',
+            //     ],
+            //     borderColor: [
+            //         // 'rgba(0,0,0, 0.6)',
+            //         // 'rgba(0,0,0, 0.6)',
+            //         // 'rgba(0,0,0, 0.6)',
+            //         // 'rgba(89, 37, 132, 0.6)',
+            //         // 'rgba(35, 130, 116,.8)',
+            //     ],
+            //     borderWidth: 1,
+            //     data: [0,0,canswer,nasnswer],
+            // },
+        ]
+        },
+        options: {
+        }
+    });
+    </script>
+
+
+<script>
+    var total = "{{ list3 }}";
+    var total1 = "{{ Ulist3 }}";
+    var Dismissed = "{{ dimissed3 }}";
+    var canswer = "{{ CorrectAns3 }}"
+    var nasnswer = "{{ NotCorrectAns3 }}"
+
+    var ctx = document.getElementById("myChart3").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: [ "Unanswered", "Dismissed","Correct","Incorrect"],
+            datasets: [
+            {
+                label: "Correctly Answered",
+                backgroundColor: [
+                    //violet
+                    'rgba(66, 15, 250, 0.50)',
+                    // yellow
+                    'rgba(220, 184, 4, 0.50)',
+                    //green
+                    'rgba(124, 232, 23, 0.46)',
+                    //red
+                    'rgba(175, 29, 4, 0.45)',
+                ],
+                borderColor: [
+                    // 'rgba(0,100,0, 0.6)',
+                    // 'rgba(255,99,132,1)',
+                    // 'rgba(255, 255, 140, 1)',
+                ],
+                borderWidth: 1,
+                data: [total1,Dismissed,canswer,nasnswer],
+            },
+            // {
+            //     label: "Correctly Answered",
+            //     backgroundColor: [
+            //         'rgba(0,0,0, 0.6)',
+            //         'rgba(0,0,0, 0.6)',
+            //         //green
+            //         'rgba(124, 232, 23, 0.46)',
+            //         //red
+            //         'rgba(175, 29, 4, 0.45)',
+            //     ],
+            //     borderColor: [
+            //         // 'rgba(0,0,0, 0.6)',
+            //         // 'rgba(0,0,0, 0.6)',
+            //         // 'rgba(0,0,0, 0.6)',
+            //         // 'rgba(89, 37, 132, 0.6)',
+            //         // 'rgba(35, 130, 116,.8)',
+            //     ],
+            //     borderWidth: 1,
+            //     data: [0,0,canswer,nasnswer],
+            // },
+        ]
+        },
+        options: {
+        }
+    });
+    </script>
+
+<script>
+    var total = "{{ list4 }}";
+    var total1 = "{{ Ulist4 }}";
+    var Dismissed = "{{ dimissed4 }}";
+    var canswer = "{{ CorrectAns4 }}"
+    var nasnswer = "{{ NotCorrectAns4 }}"
+
+    var ctx = document.getElementById("myChart4").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: [ "Unanswered", "Dismissed","Correct","Incorrect"],
+            datasets: [
+            {
+                label: "Correctly Answered",
+                backgroundColor: [
+                    //violet
+                    'rgba(66, 15, 250, 0.50)',
+                    // yellow
+                    'rgba(220, 184, 4, 0.50)',
+                    //green
+                    'rgba(124, 232, 23, 0.46)',
+                    //red
+                    'rgba(175, 29, 4, 0.45)'
+                ],
+                borderColor: [
+                    // 'rgba(0,100,0, 0.6)',
+                    // 'rgba(255,99,132,1)',
+                    // 'rgba(255, 255, 140, 1)',
+                ],
+                borderWidth: 1,
+                data: [total1,Dismissed,canswer,nasnswer],
+            },
+            // {
+            //     label: "Correctly Answered",
+            //     backgroundColor: [
+            //         'rgba(0,0,0, 0.6)',
+            //         'rgba(0,0,0, 0.6)',
+            //         //green
+            //         'rgba(124, 232, 23, 0.46)',
+            //         //red
+            //         'rgba(175, 29, 4, 0.45)',
+            //     ],
+            //     borderColor: [
+            //         // 'rgba(0,0,0, 0.6)',
+            //         // 'rgba(0,0,0, 0.6)',
+            //         // 'rgba(0,0,0, 0.6)',
+            //         // 'rgba(89, 37, 132, 0.6)',
+            //         // 'rgba(35, 130, 116,.8)',
+            //     ],
+            //     borderWidth: 1,
+            //     data: [0,0,canswer,nasnswer],
+            // },
+        ]
+        },
+        options: {
+        }
+    });
+    </script>
+<script>
+    var total = "{{ list5 }}";
+    var total1 = "{{ Ulist5 }}";
+    var Dismissed = "{{ dimissed5 }}";
+    var canswer = "{{ CorrectAns5 }}"
+    var nasnswer = "{{ NotCorrectAns5 }}"
+
+    var ctx = document.getElementById("myChart5").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: [ "Unanswered", "Dismissed","Correct","Incorrect"],
+            datasets: [
+            {
+                label: "Correctly Answered",
+                backgroundColor: [
+                    //violet
+                    'rgba(66, 15, 250, 0.50)',
+                    // yellow
+                    'rgba(220, 184, 4, 0.50)',
+                    //green
+                    'rgba(124, 232, 23, 0.46)',
+                    //red
+                    'rgba(175, 29, 4, 0.45)',
+                ],
+                borderColor: [
+                    // 'rgba(0,100,0, 0.6)',
+                    // 'rgba(255,99,132,1)',
+                    // 'rgba(255, 255, 140, 1)',
+                ],
+                borderWidth: 1,
+                data: [total1,Dismissed,canswer,nasnswer],
+            },
+            // {
+            //     label: "Correctly Answered",
+            //     backgroundColor: [
+            //         'rgba(0,0,0, 0.6)',
+            //         'rgba(0,0,0, 0.6)',
+            //         //green
+            //         'rgba(124, 232, 23, 0.46)',
+            //         //red
+            //         'rgba(175, 29, 4, 0.45)',
+            //     ],
+            //     borderColor: [
+            //         // 'rgba(0,0,0, 0.6)',
+            //         // 'rgba(0,0,0, 0.6)',
+            //         // 'rgba(0,0,0, 0.6)',
+            //         // 'rgba(89, 37, 132, 0.6)',
+            //         // 'rgba(35, 130, 116,.8)',
+            //     ],
+            //     borderWidth: 1,
+            //     data: [0,0,canswer,nasnswer],
+            // },
+        ]
+        },
+        options: {
+        }
+    });
+    </script>
+<script>
+        var total = "{{ list6 }}";
+        var total1 = "{{ Ulist6 }}";
+        var Dismissed = "{{ Dismissed }}";
+        var canswer = "{{ CorrectAns6 }}"
+        var nasnswer = "{{ NotCorrectAns6 }}"
+
+        var ctx = document.getElementById("myChart6").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ["Unanswered", "Dismissed","Correct","Incorrect"],
+                datasets: [
+                {
+                    label: "Correctly Answered",
+                    backgroundColor: [
+                        'rgba(0,255,127, 0.6)',
+                        'rgba(150, 50, 180, 0.6)',
+                        'rgba(255, 255, 140, 0.8)',
+                        'rgba(92, 249, 249, 0.6)',
+                        'rgba(249, 133, 92, 0.6)',
+
+                    ],
+                    borderColor: [
+                        'rgba(0,100,0, 0.6)',
+                        'rgba(255,99,132,1)',
+                        'rgba(255, 255, 140, 1)',
+                    ],
+                    borderWidth: 1,
+                    data: [total,total1,Dismissed,0,0],
+                },
+                {
+                    label: "Correctly Answered",
+                    backgroundColor: [
+                        'rgba(0,0,0, 0.6)',
+                        'rgba(0,0,0, 0.6)',
+                        'rgba(0,0,0, 0.6)',
+                        'rgba(92, 249, 249, 0.6)',
+                        'rgba(249, 133, 92, 0.6)',
+                    ],
+                    borderColor: [
+                        'rgba(0,0,0, 0.6)',
+                        'rgba(0,0,0, 0.6)',
+                        'rgba(0,0,0, 0.6)',
+                        'rgba(89, 37, 132, 0.6)',
+                        'rgba(35, 130, 116,.8)',
+                    ],
+                    borderWidth: 1,
+                    data: [,,,canswer,nasnswer],
+                },
+            ]
+            },
+        });
+        </script>
+{% endif %}
+{% if request.session.type == "Teacher" %}
+<script>
+    var total1 = "{{ Ulist1 }}";
+    var canswer = "{{ CorrectAns1 }}"
+    var nasnswer = "{{ NotCorrectAns1 }}"
+
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: [ "Correct", "Incorrect","Unanswered"],
+            datasets: [
+            {
+                label: "Correctly Answered",
+                backgroundColor: [
+                    'rgba(0,255,127, 0.6)',
+                    // 'rgba(220, 184, 4, 0.50)',
+                    'rgba(249, 118, 118, .6)',
+                    // 'rgba(150, 50, 180, 0.6)',
+                    'rgba(255, 255, 140, 0.8)',
+                    // 'rgba(92, 249, 249, 0.6)',
+                    // 'rgba(249, 133, 92, 0.6)',
+
+                ],
+                borderColor: [
+                    'rgba(0,100,0, 0.6)',
+                    // 'rgba(255,99,132,1)',
+                    // 'rgba(220, 184, 4, 0.50)',
+                    'rgba(249, 118, 118, .6)',
+
+                    'rgba(255, 255, 140, 1)',
+                ],
+                borderWidth: 1,
+                data: [canswer,nasnswer,total1],
+            },
+
+        ]
+        },
+    });
+    </script>
+
+<script>
+        var total1 = "{{ Ulist2 }}";
+        var canswer = "{{ CorrectAns2 }}"
+        var nasnswer = "{{ NotCorrectAns2 }}"
+
+        var ctx = document.getElementById("myChart1").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: [ "Correct", "Incorrect","Unanswered"],
+                datasets: [
+                {
+                    label: "Correctly Answered",
+                    backgroundColor: [
+                        'rgba(0,255,127, 0.6)',
+                        // 'rgba(220, 184, 4, 0.50)',
+                        'rgba(249, 118, 118, .6)',
+
+                        // 'rgba(150, 50, 180, 0.6)',
+                        'rgba(255, 255, 140, 0.8)',
+                        // 'rgba(92, 249, 249, 0.6)',
+                        // 'rgba(249, 133, 92, 0.6)',
+
+                    ],
+                    borderColor: [
+                        'rgba(0,100,0, 0.6)',
+                        // 'rgba(255,99,132,1)',
+                        // 'rgba(220, 184, 4, 0.50)',
+                        // 'rgba(215, 40, 40, 0.9);',
+                        'rgba(249, 118, 118, .6)',
+                        'rgba(255, 255, 140, 1)',
+                    ],
+                    borderWidth: 1,
+                    data: [canswer,nasnswer,total1],
+
+                },
+
+            ]
+            },
+
+        });
+        </script>
+
+
+<script>
+        var total1 = "{{ Ulist3 }}";
+        var canswer = "{{ CorrectAns3 }}"
+        var nasnswer = "{{ NotCorrectAns3 }}"
+
+        var ctx = document.getElementById("myChart3").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: [ "Correct", "Incorrect","Unanswered"],
+                datasets: [
+                {
+                    label: "Correctly Answered",
+                    backgroundColor: [
+                        'rgba(0,255,127, 0.6)',
+                        // 'rgba(220, 184, 4, 0.50)',
+                        'rgba(249, 118, 118, .6)',
+                        // 'rgba(150, 50, 180, 0.6)',
+                        'rgba(255, 255, 140, 0.8)',
+                        // 'rgba(92, 249, 249, 0.6)',
+                        // 'rgba(249, 133, 92, 0.6)',
+
+                    ],
+                    borderColor: [
+                        'rgba(0,100,0, 0.6)',
+                        // 'rgba(255,99,132,1)',
+                        // 'rgba(220, 184, 4, 0.50)',
+                        'rgba(249, 118, 118, .6)',
+
+                        'rgba(215, 40, 40, 0.9);',
+                        // 'rgba(255, 255, 140, 1)',
+                    ],
+                    borderWidth: 1,
+                    data: [canswer,nasnswer,total1],
+
+                },
+
+            ]
+            },
+           
+        });
+        </script>
+
+<script>
+        var total1 = "{{ Ulist4 }}";
+        var canswer = "{{ CorrectAns4 }}"
+        var nasnswer = "{{ NotCorrectAns4 }}"
+
+        var ctx = document.getElementById("myChart4").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: [ "Correct", "Incorrect","Unanswered"],
+                datasets: [
+                {
+                    label: "Correctly Answered",
+                    backgroundColor: [
+                        'rgba(0,255,127, 0.6)',
+                        // 'rgba(220, 184, 4, 0.50)',
+                        'rgba(249, 118, 118, .6)',
+
+                        // 'rgba(150, 50, 180, 0.6)',
+                        'rgba(255, 255, 140, 0.8)',
+                        // 'rgba(92, 249, 249, 0.6)',
+                        // 'rgba(249, 133, 92, 0.6)',
+
+                    ],
+                    borderColor: [
+                        'rgba(0,100,0, 0.6)',
+                        // 'rgba(255,99,132,1)',
+                        // 'rgba(220, 184, 4, 0.50)',
+                        // 'rgba(215, 40, 40, 0.9);',
+                        'rgba(249, 118, 118, .6)',
+                        'rgba(255, 255, 140, 1)',
+                    ],
+                    borderWidth: 1,
+                    data: [canswer,nasnswer,total1],
+                },
+
+            ]
+            },
+        });
+        </script>
+<script>
+        var total1 = "{{ Ulist5 }}";
+        var canswer = "{{ CorrectAns5 }}"
+        var nasnswer = "{{ NotCorrectAns5 }}"
+
+        var ctx = document.getElementById("myChart5").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: [ "Correct", "Incorrect","Unanswered"],
+                datasets: [
+                {
+                    label: "Correctly Answered",
+                    backgroundColor: [
+                        'rgba(0,255,127, 0.6)',//green
+                        // 'rgba(220, 184, 4, 0.50)',
+                        // 'rgba(215, 40, 40, 0.9);',
+                        'rgba(249, 118, 118, .6)',
+                        // 'rgba(150, 50, 180, 0.6)',//purple
+                        'rgba(255, 255, 140, 0.8)',//yellow
+                    ],
+                    borderColor: [
+                        'rgba(0,100,0, 0.6)',
+                        // 'rgba(255,99,132,1)',
+                        'rgba(249, 118, 118, .6)',
+
+                        // 'rgba(215, 40, 40, 0.9);',
+                        'rgba(255, 255, 140, 1)',
+                    ],
+                    borderWidth: 1,
+                    data: [canswer,nasnswer,total1],
+                },
+
+            ]
+            },
+    
+        });
+        </script>
+{% endif %}

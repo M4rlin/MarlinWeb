@@ -1,0 +1,1046 @@
+{% extends 'base.html' %}
+<!-- Page Heading -->
+
+{% block content %}
+<!-- Page Heading -->
+<!-- {% load crispy_forms_tags %} -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Quiz Section
+            <small>Creation</small>
+        </h1>
+    </div>
+</div>
+<!-- /.row -->
+<!-- Page Heading -->
+{%if error %}
+<div class="alert alert-warning alert-dismissible fade in">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Reminder!</strong> {{msg}}
+</div>
+{% endif %}
+<div class="row">
+    <div class="col-lg-8">
+        <!--
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Guidelines</h3>
+            </div>
+            <div class="panel-body">
+
+                <br>
+            </div>
+        </div>
+        -->
+        <!-- <form action="\marlin\\" method="post" class="form-group">
+            {% csrf_token %} -->
+        <form action="/marlin/InsertQuiz" method="post" class="form-group">
+            {% csrf_token %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Quiz Form</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-lg-12">
+                    <!-- <div class="col-lg-12">
+                        <p><strong>Instruction:</strong> Quiz Items can be of mininum of 1 question or a maximum of 5 per day. All quizzes will start at 8:00AM and end at 12AM. </p>
+                        <p><strong>Reminder:</strong> All quizzes must be answered day before the class discussion. </p>
+                        <br>
+                    </div>                     -->
+                       <div class="col-lg-12">
+                        <p><strong>Instruction:</strong> All quizzess will automatically start at 8:00AM and will end by 12AM.</p>
+                        <p><strong>Reminder:</strong> All quizzes must be prepared prior to class lecture, Quizzes can no longer be edited on the day of the quiz.</p>
+                    </div>
+                   <div class="col-lg-6">
+                        <strong>{{ form.Quiz_Topic.label }}</strong>
+                        {{ form.Quiz_Topic }}
+                        {% if form.Quiz_Topic.help_text %}
+                            <p class="help">{{ form.Quiz_Topic.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-6">
+                        <strong>{{ form.Quiz_Date.label }}:</strong>
+                        {{ form.Quiz_Date }}
+                        {{ form.Quiz_Date.errors }}
+                        {% if form.Quiz_Date.help_text %}
+                            <p class="help">{{ form.Quiz_Date.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                    {% if request.session.type == "Admin" %}
+                    <div class="col-lg-6">
+                        <strong>{{ form.Sections.label }}</strong>
+                        {{ form.Sections }}
+                        {{ form.Sections.errors }}
+                        {% if form.Sections.help_text %}
+                            <p class="help">{{ form.Sections.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-6">
+                        <strong>{{ form.Subjects.label }}</strong>
+                        {{ form.Subjects }}
+                        {{ form.Subjects.errors }}
+                        {% if form.Subjects.help_text %}
+                            <p class="help">{{ form.Subjects.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% if request.session.type == "Teacher" %}
+                    <div class="col-lg-6">
+                        <strong>{{ form.Sections.label }}</strong>
+                        <select class="form-control" id="sel1" name="section" >
+                            {% for i in section %}
+                                <option  value="{{i}}">{{i}}</option>
+                            {% endfor %}
+                        </select>
+                        {{ form.Sections.errors }}
+                        {% if form.Sections.help_text %}
+                            <p class="help">{{ form.Sections.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-6">
+                        <strong>{{ form.Subjects.label }}</strong>
+                        {{ form.Subjects }}
+                        {{ form.Subjects.errors }}
+                        {% if form.Subjects.help_text %}
+                            <p class="help">{{ form.Subjects.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    <!-- <div class="col-lg-4" align="center" style="margin-top: 60px;">
+                        <input type="submit" name="" class="btn btn-info" id="" value="Save Quiz"> -->
+                        <!-- <input type="submit" name="" class="btn btn-warning" id="" value="Reset Quiz"> -->
+                        <!-- <button class="btn btn-warning">Reset Quiz</button>
+                    </div> -->
+                </div>
+            </div>
+                <hr >
+            <div class="panel-body" style="display: none" id="item1">
+                    {% for field in Item_form1 %}
+                    <div class="col-lg-4">
+                        {{ field.errors }}
+                        {{ field.label_tag }}
+                        <br>
+                        {{ field }}
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+
+                    <div class="col-lg-7"id="i1" style="display: none">
+                        <strong>{{ Identity_form1.IdentNum1_1.label }}</strong>
+
+                        {{ Identity_form1.IdentNum1_1 }}
+                        <span id="chars" class="pull-right">180</span>
+
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% if Identity_form1.IdentNum1_1.help_text %}
+                            <p class="help">{{ Identity_form1.IdentNum1_1.help_text|safe }}</p>
+                        {% endif %}
+                        <strong>{{ Identity_form1.IdentAnswer_1.label }}</strong>
+                        {{ Identity_form1.IdentAnswer_1 }}
+
+                        <!-- <div class="row form-inline">
+                            <div class="col-lg-11 form-group">
+                                <input type="button" class="btn btn-info btn-sm" id="answer" value="+">
+                            </div>
+                        </div> -->
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% if Identity_form1.IdentAnswer_1.help_text %}
+                            <p class="help">{{ Identity_form1.IdentAnswer_1.help_text|safe }}</p>
+                        {% endif %}
+                        <!-- <div class="form-group" hidden id="h1_1">
+                            <label for="usr">Answer1:</label> 
+                            <input type="text" class="form-control" id="ans1_1">
+                        </div>
+                        <div class="form-group" hidden id="h1_2">
+                            <label for="usr">Answer2:</label> 
+                            <input type="text" class="form-control" id="ans1_2">
+                        </div>
+                        <div class="form-group" hidden id="h1_3">
+                            <label for="usr">Answer3:</label> 
+                            <input type="text" class="form-control" id="ans1_3">
+                        </div>
+                        <div class="text-center">
+                            <input type="button" class="btn btn-info" id="answer1" value="+">
+                            <input type="button" class="btn btn-warning" id="mins1" value="-" disabled>
+                        </div> -->
+                    </div>
+                     <div class="col-lg-7" id="t1" style="display: none;">
+                            <strong>{{ Tralse_form1.Tf_Question1.label }}</strong>
+                            {{ Tralse_form1.Tf_Question1 }}
+                            <span id="ch" class="pull-right">180</span>
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% if Tralse_form1.Tf_Question1.help_text %}
+                                <p class="help">{{ Tralse_form1.Tf_Question1.help_text|safe }}</p>
+                            {% endif %}
+                            <strong>{{ Tralse_form1.Tf_Answer1.label }}</strong>
+                            {{ Tralse_form1.Tf_Answer1 }}
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% if Tralse_form1.Tf_Answer1.help_text %}
+                                <p class="help">{{ Tralse_form1.Tf_Answer1.help_text|safe }}</p>
+                            {% endif %}
+                    </div>
+                     <div class="col-lg-7" id="m1" style="display: none;">
+                    {% for field in Mutlitple_form1 %}
+                        {{ field.errors }}
+                        {{ field.label_tag }}
+                        <br>
+                        {{ field }}
+                        <span id="char" class="pull-right">180</span>
+
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                        {% endfor %}
+                        <div class="radio">
+                            <label for="">A:</label>
+                            <input type="text" name="item1Op1" id="">
+                            <label><input type="radio" name="optradio1" value="A"></label>
+                        </div>
+                        <div class="radio">
+                            <label for="">B:</label>
+                            <input type="text" name="item1Op2" id="">
+                            <label><input type="radio" name="optradio1" value="B"></label>
+                        </div>
+                        <div class="radio disabled">
+                            <label for="">C:</label>
+                            <input type="text" name="item1Op3" id="">
+                            <label><input type="radio" name="optradio1" value="C"></label>
+                        </div>
+                    </div>
+                <!-- <h5>hi</h5> -->
+            </div>
+            <hr id="li1" hidden>
+            <div class="panel-body" style="display: none" id="item2">
+                    {% for field in Item_form2 %}
+                    <div class="col-lg-4">
+                        {{ field.errors }}
+                        {{ field.label_tag }}
+                        <br>
+                        {{ field }}
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+
+                    <div class="col-lg-7 " id="i2" style="display: none">
+                        <strong>{{ Identity_form2.IdentNum1_2.label }}</strong>
+                        {{ Identity_form2.IdentNum1_2 }}
+                        <span id="chars1" class="pull-right">180</span>
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% if Identity_form2.IdentNum1_2.help_text %}
+                            <p class="help">{{ Identity_form1.IdentNum1_1.help_text|safe }}</p>
+                        {% endif %}
+                        <strong>{{ Identity_form2.IdentAnswer_2.label }}</strong>
+                        {{ Identity_form2.IdentAnswer_2 }}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% if Identity_form2.IdentAnswer_2.help_text %}
+                            <p class="help">{{ Identity_form1.IdentAnswer_2.help_text|safe }}</p>
+                        {% endif %}
+                        <!-- <div class="form-group" hidden id="h2_1">
+                                <label for="usr">Answer1:</label> 
+                                <input type="text" class="form-control" id="ans2_1">
+                            </div>
+                            <div class="form-group" hidden id="h2_2">
+                                <label for="usr">Answer2:</label> 
+                                <input type="text" class="form-control" id="ans2_2">
+                            </div>
+                            <div class="form-group" hidden id="h2_3">
+                                <label for="usr">Answer3:</label> 
+                                <input type="text" class="form-control" id="ans2_3">
+                            </div>
+                            <div class="text-center">
+                                <input type="button" class="btn btn-info" id="answer2" value="+">
+                                <input type="button" class="btn btn-warning" id="mins2" value="-">
+                            </div> -->
+                    </div>
+                     <div class="col-lg-7" id="t2" style="display: none;">
+                            <strong>{{ Tralse_form2.Tf_Question2.label }}</strong>
+                            {{ Tralse_form2.Tf_Question2 }}
+                            <span id="ch1" class="pull-right">180</span>
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% if Tralse_form2.Tf_Question2.help_text %}
+                                <p class="help">{{ Tralse_form2.Tf_Question2.help_text|safe }}</p>
+                            {% endif %}
+                            <strong>{{ Tralse_form5.Tf_Answer2.label }}</strong>
+                            {{ Tralse_form2.Tf_Answer2 }}
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% if Tralse_form2.Tf_Answer2.help_text %}
+                                <p class="help">{{ Tralse_form2.Tf_Answer2.help_text|safe }}</p>
+                            {% endif %}
+                    </div>
+                     <div class="col-lg-7" id="m2" style="display: none;">
+                    {% for field in Mutlitple_form2 %}
+                        {{ field.errors }}
+                        {{ field.label_tag }}
+                        <br>
+                        {{ field }}
+                        <span id="char1" class="pull-right">180</span>
+
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                        {% endfor %}
+                        <div class="radio">
+                            <label for="">A:</label>
+                            <input type="text" name="item2Op1" id="">
+
+                            <label><input type="radio" name="optradio2" value="A"></label>
+                        </div>
+                        <div class="radio">
+                            <label for="">B:</label>
+                            <input type="text" name="item2Op2" id="">
+                            <label><input type="radio" name="optradio2" value="B"></label>
+                        </div>
+                        <div class="radio disabled">
+                            <label for="">C:</label>
+                            <input type="text" name="item2Op3" id="">
+                            <label><input type="radio" name="optradio2" value="C"></label>
+                        </div>
+                    </div>
+                <!-- <h5>hi</h5> -->
+            </div>
+            <hr id="li2" hidden>
+            <div class="panel-body" style="display: none" id="item3">
+                    {% for field in Item_form3 %}
+                    <div class="col-lg-4">
+                        {{ field.errors }}
+                        {{ field.label_tag }}
+                        <br>
+                        {{ field }}
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+
+                    <div class="col-lg-7 " id="i3" style="display: none">
+                            <strong>{{ Identity_form3.IdentNum1_3.label }}</strong>
+                            {{ Identity_form3.IdentNum1_3 }}
+                            <span id="chars2" class="pull-right">180</span>
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% if Identity_form3.IdentNum1_3.help_text %}
+                                <p class="help">{{ Identity_form3.IdentNum1_3.help_text|safe }}</p>
+                            {% endif %}
+                            <strong>{{ Identity_form3.IdentAnswer_3.label }}</strong>
+                            {{ Identity_form3.IdentAnswer_3 }}
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% if Identity_form2.IdentAnswer_3.help_text %}
+                                <p class="help">{{ Identity_form3.IdentAnswer_3.help_text|safe }}</p>
+                            {% endif %}
+                            <!-- <div class="form-group" hidden id="h3_1">
+                                <label for="usr">Answer1:</label> 
+                                <input type="text" class="form-control" id="ans3_1">
+                            </div>
+                            <div class="form-group" hidden id="h3_2">
+                                <label for="usr">Answer2:</label> 
+                                <input type="text" class="form-control" id="ans3_2">
+                            </div>
+                            <div class="form-group" hidden id="h3_3">
+                                <label for="usr">Answer3:</label> 
+                                <input type="text" class="form-control" id="ans3_3">
+                            </div>
+                            <div class="text-center">
+                                <input type="button" class="btn btn-info" id="answer3" value="+">
+                                <input type="button" class="btn btn-warning" id="mins3" value="-">
+                            </div> -->
+                    </div>
+                     <div class="col-lg-7" id="t3" style="display: none;">
+                            <strong>{{ Tralse_form3.Tf_Question3.label }}</strong>
+                            {{ Tralse_form3.Tf_Question3 }}
+                            <span id="ch2" class="pull-right">180</span>
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% if Tralse_form3.Tf_Question3.help_text %}
+                                <p class="help">{{ Tralse_form3.Tf_Question3.help_text|safe }}</p>
+                            {% endif %}
+                            <strong>{{ Tralse_form3.Tf_Answer3.label }}</strong>
+                            {{ Tralse_form3.Tf_Answer3 }}
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% if Tralse_form5.Tf_Answer3.help_text %}
+                                <p class="help">{{ Tralse_form3.Tf_Answer3.help_text|safe }}</p>
+                            {% endif %}
+                    </div>
+                     <div class="col-lg-7" id="m3" style="display: none;">
+                    {% for field in Mutlitple_form3 %}
+                        {{ field.errors }}
+                        {{ field.label_tag }}
+                        <br>
+                        {{ field }}
+                        <span id="char2" class="pull-right">180</span>
+
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                        {% endfor %}
+                        <div class="radio">
+                            <label for="">A:</label>
+                            <input type="text" name="item3Op1" id="">
+                            <label><input type="radio" name="optradio3" value="A"></label>
+                        </div>
+                        <div class="radio">
+                            <label for="">B:</label>
+                            <input type="text" name="item3Op2" id="">
+                            <label><input type="radio" name="optradio3" value="B"></label>
+                        </div>
+                        <div class="radio disabled">
+                            <label for="">C:</label>
+                            <input type="text" name="item3Op3" id="">
+                            <label><input type="radio" name="optradio3" value="C"></label>
+                        </div>
+                    </div>
+                <!-- <h5>hi</h5> -->
+            </div>
+            <hr id="li3" hidden>
+            <div class="panel-body" style="display: none" id="item4">
+                    {% for field in Item_form4 %}
+                    <div class="col-lg-4">
+                        {{ field.errors }}
+                        {{ field.label_tag }}
+                        <br>
+                        {{ field }}
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+
+                    <div class="col-lg-7 " id="i4" style="display: none">
+                        <strong>{{ Identity_form4.IdentNum1_4.label }}</strong>
+                        {{ Identity_form4.IdentNum1_4 }}
+                        <span id="chars3" class="pull-right">180</span>
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% if Identity_form4.IdentNum1_4.help_text %}
+                            <p class="help">{{ Identity_form4.IdentNum1_4.help_text|safe }}</p>
+                        {% endif %}
+                        <strong>{{ Identity_form4.IdentAnswer_4.label }}</strong>
+                        {{ Identity_form4.IdentAnswer_4 }}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% if Identity_form4.IdentAnswer_4.help_text %}
+                            <p class="help">{{ Identity_form4.IdentAnswer_4.help_text|safe }}</p>
+                        {% endif %}
+                        <!-- <div class="form-group" hidden id="h4_1">
+                                <label for="usr">Answer1:</label> 
+                                <input type="text" class="form-control" id="ans4_1">
+                            </div>
+                            <div class="form-group" hidden id="h4_2">
+                                <label for="usr">Answer2:</label> 
+                                <input type="text" class="form-control" id="ans4_2">
+                            </div>
+                            <div class="form-group" hidden id="h4_3">
+                                <label for="usr">Answer3:</label> 
+                                <input type="text" class="form-control" id="ans4_3">
+                            </div>
+                            <div class="text-center">
+                                <input type="button" class="btn btn-info" id="answer4" value="+">
+                                <input type="button" class="btn btn-warning" id="mins4" value="-">
+                            </div> -->
+                    </div>
+                     <div class="col-lg-7" id="t4" style="display: none;">
+                            <strong>{{ Tralse_form4.Tf_Question4.label }}</strong>
+                            {{ Tralse_form4.Tf_Question4 }}
+                            <span id="ch3" class="pull-right">180</span>
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% if Tralse_form4.Tf_Question4.help_text %}
+                                <p class="help">{{ Tralse_form4.Tf_Question5.help_text|safe }}</p>
+                            {% endif %}
+                            <strong>{{ Tralse_form4.Tf_Answer4.label }}</strong>
+                            {{ Tralse_form4.Tf_Answer4 }}
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% if Tralse_form4.Tf_Answer4.help_text %}
+                                <p class="help">{{ Tralse_form4.Tf_Answer4.help_text|safe }}</p>
+                            {% endif %}
+                    </div>
+                    <div class="col-lg-7" id="m4" style="display: none;">
+                        {% for field in Mutlitple_form4 %}
+                        {{ field.errors }}
+                        {{ field.label_tag }}
+                        <br>
+                        {{ field }}
+                        <span id="char3" class="pull-right">180</span>
+
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                        {% endfor %}
+                        <div class="radio">
+                            <label for="">A:</label>
+                            <input type="text" name="item4Op1" id="">
+                            <label><input type="radio" name="optradio4" value="A"></label>
+                        </div>
+                        <div class="radio">
+                            <label for="">B:</label>
+                            <input type="text" name="item4Op2" id="">
+                            <label><input type="radio" name="optradio4" value="B"></label>
+                        </div>
+                        <div class="radio disabled">
+                            <label for="">C:</label>
+                            <input type="text" name="item4Op3" id="">
+                            <label><input type="radio" name="optradio4" value="C"></label>
+                        </div>
+                    </div>
+                <!-- <h5>hi</h5> -->
+            </div>
+            <hr id="li4" hidden>
+            <div class="panel-body" style="display: none" id="item5">
+                    {% for field in Item_form5 %}
+                    <div class="col-lg-4">
+                        {{ field.errors }}
+                        {{ field.label_tag }}
+                        <br>
+                        {{ field }}
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+
+                    <div class="col-lg-7 " id="i5" style="display: none">
+                            <strong>{{ Identity_form5.IdentNum1_5.label }}</strong>
+                            {{ Identity_form5.IdentNum1_5 }}
+                            <span id="chars4" class="pull-right">180</span>
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% if Identity_form5.IdentNum1_5.help_text %}
+                                <p class="help">{{ Identity_form1.IdentNum1_5.help_text|safe }}</p>
+                            {% endif %}
+                            <strong>{{ Identity_form5.IdentAnswer_5.label }}</strong>
+                            {{ Identity_form5.IdentAnswer_5 }}
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% if Identity_form5.IdentAnswer_5.help_text %}
+                                <p class="help">{{ Identity_form1.IdentAnswer_5.help_text|safe }}</p>
+                            {% endif %}
+                            <!-- <div class="form-group" hidden id="h5_1">
+                                <label for="usr">Answer1:</label> 
+                                <input type="text" class="form-control" id="ans5_1">
+                            </div>
+                            <div class="form-group" hidden id="h5_2">
+                                <label for="usr">Answer2:</label> 
+                                <input type="text" class="form-control" id="ans5_2">
+                            </div>
+                            <div class="form-group" hidden id="h5_3">
+                                <label for="usr">Answer3:</label> 
+                                <input type="text" class="form-control" id="ans5_3">
+                            </div>
+                            <div class="text-center">
+                                <input type="button" class="btn btn-info" id="answer5" value="+">
+                                <input type="button" class="btn btn-warning" id="mins5" value="-">
+                            </div> -->
+                    </div>
+                    <div class="col-lg-7" id="t5" style="display: none;">
+                            <strong>{{ Tralse_form5.Tf_Question5.label }}</strong>
+                            {{ Tralse_form5.Tf_Question5 }}
+                            <span id="ch4" class="pull-right">180</span>
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% if Tralse_form5.Tf_Question5.help_text %}
+                                <p class="help">{{ Tralse_form5.Tf_Question5.help_text|safe }}</p>
+                            {% endif %}
+                            <strong>{{ Tralse_form5.Tf_Answer5.label }}</strong>
+                            {{ Tralse_form5.Tf_Answer5 }}
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% if Tralse_form5.Tf_Answer5.help_text %}
+                                <p class="help">{{ Tralse_form5.Tf_Answer5.help_text|safe }}</p>
+                            {% endif %}
+                    </div>
+                     <div class="col-lg-7" id="m5" style="display: none;">
+                    {% for field in Mutlitple_form5 %}
+                        {{ field.errors }}
+                        {{ field.label_tag }}
+                        <br>
+                        {{ field }}
+                        <span id="char4" class="pull-right">180</span>
+
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                        {% endfor %}
+                        <div class="radio">
+                            <label for="">A:</label>
+                            <input type="text" name="item5Op1" id="">
+                            <label><input type="radio" name="optradio5" value="A"></label>
+                        </div>
+                        <div class="radio">
+                            <label for="">B:</label>
+                            <input type="text" name="item5Op2" id="">
+                            <label><input type="radio" name="optradio5" value="B"></label>
+                        </div>
+                        <div class="radio disabled">
+                            <label for="">C:</label>
+                            <input type="text" name="item5Op3" id="">
+                            <label><input type="radio" name="optradio5" value="C"></label>
+                        </div>
+                    </div>
+                <!-- <h5>hi</h5> -->
+            </div>
+            <!--  -->
+            <!-- <hr id="li5" hidden>             -->
+            <div class="panel-body" align="center">
+                <input type="button" class="btn btn-success" id="add" value="Add Item">
+                <input type="button" class="btn btn-danger" id="minus" value="Remove Item" disabled>
+            </div>
+        </div>
+        <div class="row" align="center">
+            <!-- <a href="/Quiz/" class="btn btn-default">Reset Quiz</a> -->
+            <input type="submit" class="btn btn-success" id="adds" value="Save Quiz" disabled onclick="return confirm('Are you sure you want to save this quiz?');">
+        </div>
+        </form>
+    </div>
+
+    {% if request.session.type == "Admin" %}
+    <div class="col-lg-4 pull-right">
+        <div class="panel tabbed-panel panel-default">
+            <div class="panel-heading clearfix">
+                <div class="panel-title pull-left">Quiz History Tab</div>
+                    <div class="pull-right">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab-default-1" data-toggle="tab">ZC11</a></li>
+                            <li><a href="#tab-default-2" data-toggle="tab">ZT11</a></li>
+                            <li><a href="#tab-default-3" data-toggle="tab">ZT12</a></li>
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown">More <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#tab-default-5" data-toggle="tab">N1</a></li>
+                                    <li><a href="#tab-default-4" data-toggle="tab">ZT13</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            <div class="tab-content">
+                <div class="tab-pane fade in active text-center" id="tab-default-1">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Date</th>
+                                    <th>Topic</th>
+                                    <th>Course</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for dates in date3 %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ dates.Quiz_Date }}</td>
+                                    <td>{{ dates.Quiz_Topic }}</td>
+                                    <td>{{ dates.subjects }}</td>
+                                    <td align="center"><a class="btn btn-info" href="/marlin/Graphs/{{dates.sections}}/{{dates.subjects}}/{{ dates.Quiz_Date }}">View</a>
+                                        <!-- <a class="btn btn-info" href="/Graphs/{{ dates.Quiz_Date }}">Update</a> -->
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <span class="step-links ">
+                            {% if date3.has_previous %}
+                                <a href="?page3={{ date3.previous_page_number }}" class="btn btn-default">previous</a>
+                            {% endif %}
+                            <span class="current">
+                                {% if AC4 %}
+                                    Page {{ date3.number }} of {{ date3.paginator.num_pages }}.
+                                {% else %}
+                                    <h4>No quizzes available</h4> <br>
+                                {% endif %}
+
+                            </span>
+
+                            {% if date3.has_next %}
+                                <a href="?page3={{ date3.next_page_number }}" class="btn btn-default">next</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="tab-pane fade text-center" id="tab-default-2">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Date</th>
+                                    <th>Topic</th>
+                                    <th>Course</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for dates in date %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ dates.Quiz_Date }}</td>
+                                    <td>{{ dates.Quiz_Topic }}</td>
+                                    <td>{{ dates.subjects }}</td>
+                                    <td align="center"><a class="btn btn-info" href="/marlin/Graphs/{{dates.sections}}/{{dates.subjects}}/{{ dates.Quiz_Date }}">View</a>
+                                        <!-- <a class="btn btn-info" href="/Graphs/{{ dates.Quiz_Date }}">Update</a> -->
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <span class="step-links ">
+                            {% if date.has_previous %}
+                                <a href="?page={{ date.previous_page_number }}" class="btn btn-default">previous</a>
+                            {% endif %}
+
+                            <span class="current">
+                                {% if AC1 %}
+                                    Page {{ date.number }} of {{ date.paginator.num_pages }}.
+                                {% else %}
+                                    <h4>No quizzes available</h4> <br>
+                                {% endif %}
+                            </span>
+
+                            {% if date.has_next %}
+                                <a href="?page={{ date.next_page_number }}" class="btn btn-default">next</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="tab-pane fade text-center" id="tab-default-3">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Date</th>
+                                    <th>Topic</th>
+                                    <th>Course</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for dates in date1 %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ dates.Quiz_Date }}</td>
+                                    <td>{{ dates.Quiz_Topic }}</td>
+                                    <td>{{ dates.subjects }}</td>
+                                    <td align="center"><a class="btn btn-info" href="/marlin/Graphs/{{dates.sections}}/{{dates.subjects}}/{{ dates.Quiz_Date }}">View</a>
+                                        <!-- <a class="btn btn-info" href="/Graphs/{{ dates.Quiz_Date }}">Update</a> -->
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <span class="step-links ">
+                            {% if date1.has_previous %}
+                                <a href="?page1={{ date1.previous_page_number }}" class="btn btn-default">previous</a>
+                            {% endif %}
+
+                            <span class="current">
+                                {% if AC2 %}
+                                    Page {{ date1.number }} of {{ date1.paginator.num_pages }}.
+                                {% else %}
+                                    <h4>No quizzes available</h4> <br>
+                                {% endif %}
+                            </span>
+
+                            {% if date1.has_next %}
+                                <a href="?page1={{ date1.next_page_number }}" class="btn btn-default">next</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="tab-pane fade text-center" id="tab-default-4">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Date</th>
+                                    <th>Topic</th>
+                                    <th>Course</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for dates in date2 %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ dates.Quiz_Date }}</td>
+                                    <td>{{ dates.Quiz_Topic }}</td>
+                                    <td>{{ dates.subjects }}</td>
+                                    <td align="center"><a class="btn btn-info" href="/marlin/Graphs/{{dates.sections}}/{{dates.subjects}}/{{ dates.Quiz_Date }}">View</a>
+                                        <!-- <a class="btn btn-info" href="/Graphs/{{ dates.Quiz_Date }}">Update</a> -->
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <span class="step-links ">
+                            {% if date2.has_previous %}
+                                <a href="?page2={{ date2.previous_page_number }}" class="btn btn-default">previous</a>
+                            {% endif %}
+
+                            <span class="current">
+                                Page {{ date2.number }} of {{ date2.paginator.num_pages }}.
+                            </span>
+
+                            {% if date2.has_next %}
+                                <a href="?page2={{ date2.next_page_number }}" class="btn btn-default">next</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="tab-pane fade text-center" id="tab-default-5" >
+                     <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Date</th>
+                                    <th>Topic</th>
+                                    <th>Course</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for dates in date4 %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ dates.Quiz_Date }}</td>
+                                    <td>{{ dates.Quiz_Topic }}</td>
+                                    <td>{{ dates.subjects }}</td>
+                                    <td align="center"><a class="btn btn-info" href="/marlin/Graphs/{{dates.sections}}/{{dates.subjects}}/{{ dates.Quiz_Date }}">View</a>
+                                        <!-- <a class="btn btn-info" href="/Graphs/{{ dates.Quiz_Date }}">Update</a> -->
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                            <span class="step-links">
+                            {% if date4 is not None %}
+                                {% if date4.has_previous %}
+                                    <a href="?page4={{ date4.previous_page_number }}" class="btn btn-default">previous</a>
+                                {% endif %}
+                                <span class="current">
+                                    {% if AC5 %}
+                                        Page {{ date4.number }} of {{ date4.paginator.num_pages }}.
+                                    {% else %}
+                                        <h4>No quizzes available</h4> <br>
+                                    {% endif %}
+                                </span>
+                                {% if date4.has_next %}
+                                    <a href="?page4={{ date4.next_page_number }}" class="btn btn-default">next</a>
+                                {% endif %}
+                            {% endif %}
+
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if request.session.type == "Teacher" %}
+    <div class="col-lg-4">
+        <div class="panel panel-default">
+            {%for  i in listSection%}
+                {% if i == "ZT11" %}
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Quiz History in ZT11</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Topic</th>
+                                    <th>Course</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for dates in date %}
+                                <tr>
+                                    <td>{{ dates.Quiz_Date }}</td>
+                                    <td>{{ dates.Quiz_Topic }}</td>
+                                    <td>{{ dates.subjects }}</td>
+                                    <td align="center"><a class="btn btn-info" href="/marlin/Graphs/{{dates.sections}}/{{dates.subjects}}/{{ dates.Quiz_Date }}">View</a>
+                                        <!-- <a class="btn btn-info" href="/Graphs/{{ dates.Quiz_Date }}">Update</a> -->
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination center">
+                        <span class="step-links ">
+                            {% if date.has_previous %}
+                                <a href="?page={{ date.previous_page_number }}" class="btn btn-default">previous</a>
+                            {% endif %}
+
+                            <span class="current">
+                                {% if AC1 %}
+                                    Page {{ date.number }} of {{ date.paginator.num_pages }}.
+                                {% else %}
+                                    <h4>No quizzes available</h4> <br>
+                                {% endif %}
+                            </span>
+
+                            {% if date.has_next %}
+                                <a href="?page={{ date.next_page_number }}" class="btn btn-default">next</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                {%endif%}
+                {% if i == "ZT12" %}
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Quiz History in ZT12</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Topic</th>
+                                    <th>Course</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for dates in date1 %}
+                                <tr>
+                                    <td>{{ dates.Quiz_Date }}</td>
+                                    <td>{{ dates.Quiz_Topic }}</td>
+                                    <td>{{ dates.subjects }}</td>
+                                    <td align="center"><a class="btn btn-info" href="/marlin/Graphs/{{dates.sections}}/{{dates.subjects}}/{{ dates.Quiz_Date }}">View</a>
+                                        <!-- <a class="btn btn-info" href="/Graphs/{{ dates.Quiz_Date }}">Update</a> -->
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination center">
+                        <span class="step-links ">
+                            {% if date1.has_previous %}
+                                <a href="?page1={{ date1.previous_page_number }}" class="btn btn-default">previous</a>
+                            {% endif %}
+
+                            <span class="current">
+                                {% if AC2 %}
+                                    Page {{ date1.number }} of {{ date3.paginator.num_pages }}.
+                                {% else %}
+                                    <h4>No quizzes available</h4> <br>
+                                {% endif %}
+                            </span>
+
+                            {% if date1.has_next %}
+                                <a href="?page1={{ date1.next_page_number }}" class="btn btn-default">next</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                {%endif%}
+                {% if i == "ZT13" %}
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Quiz History in ZT13</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Topic</th>
+                                    <th>Course</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for dates in date2 %}
+                                <tr>
+                                    <td>{{ dates.Quiz_Date }}</td>
+                                    <td>{{ dates.Quiz_Topic }}</td>
+                                    <td>{{ dates.subjects }}</td>
+                                    <td align="center"><a class="btn btn-info" href="/marlin/Graphs/{{dates.sections}}/{{dates.subjects}}/{{ dates.Quiz_Date }}">View</a>
+                                        <!-- <a class="btn btn-info" href="/Graphs/{{ dates.Quiz_Date }}">Update</a> -->
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination center">
+                        <span class="step-links ">
+                            {% if date2.has_previous %}
+                                <a href="?page2={{ date2.previous_page_number }}" class="btn btn-default">previous</a>
+                            {% endif %}
+
+                            <span class="current">
+                                {% if AC3 %}
+                                    Page {{ date2.number }} of {{ date2.paginator.num_pages }}.
+                                {% else %}
+                                    <h4>No quizzes available</h4> <br>
+                                {% endif %}
+                            </span>
+
+                            {% if date2.has_next %}
+                                <a href="?page2={{ date2.next_page_number }}" class="btn btn-default">next</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                {%endif%}
+                {% if i == "ZC11" %}
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Quiz History in ZC11</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Topic</th>
+                                    <th>Course</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for dates in date3 %}
+                                <tr>
+                                    <td>{{ dates.Quiz_Date }}</td>
+                                    <td>{{ dates.Quiz_Topic }}</td>
+                                    <td>{{ dates.subjects }}</td>
+                                    <td align="center"><a class="btn btn-info" href="/marlin/Graphs/{{dates.sections}}/{{dates.subjects}}/{{ dates.Quiz_Date }}">View</a>
+                                        <!-- <a class="btn btn-info" href="/Graphs/{{ dates.Quiz_Date }}">Update</a> -->
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination center">
+                        <span class="step-links ">
+                            {% if date3.has_previous %}
+                                <a href="?page3={{ date3.previous_page_number }}" class="btn btn-default">previous</a>
+                            {% endif %}
+
+                            <span class="current">
+                                {% if AC4 %}
+                                    Page {{ date3.number }} of {{ date3.paginator.num_pages }}.
+                                {% else %}
+                                    <h4>No quizzes available</h4> <br>
+                                {% endif %}
+                            </span>
+
+                            {% if date3.has_next %}
+                                <a href="?page3={{ date3.next_page_number }}" class="btn btn-default">next</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                {%endif%}
+
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+</div>
+<!-- /.row -->
+
+{% endblock %}

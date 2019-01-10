@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+<!-- Page Heading -->
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            {% for names in fname%}
+            {{names}}
+            {% endfor %}
+            {% for names in lname%}
+            {{names}} <small>Statistics Overview</small>
+            {% endfor %}
+        </h1>
+    </div>
+</div>
+<!-- /.row -->
+{% for topics,item1,item2,item3,item4,item5,type1,type2,type3,type4,type5,result1,result2,result3,result4,result5,count,dissmis1,dissmis2,dissmis3,dissmis4,dissmis5 in topic %}
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Quiz {{forloop.counter}}: {{topics}}</h3>
+        </div>
+            
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th>Items</th>
+                <th>Questions</th>
+                <th>Question Type</th>
+                <th>Result</th>
+                <th>Dimissed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>{{item1}}</td>
+                    <td>{{type1}}</td>
+                    <td>{{result1}}</td>
+                    <td>{{dissmis1}} Times</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>{{item2}}</td>
+                    <td>{{type2}}</td>
+                    <td>{{result2}}</td>
+                    <td>{{dissmis2}} Times</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>{{item3}}</td>
+                    <td>{{type3}}</td>
+                    <td>{{result3}}</td>
+                    <td>{{dissmis3}} Times</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>{{item4}}</td>
+                    <td>{{type4}}</td>
+                    <td>{{result4}}</td>
+                    <td>{{dissmis4}} Times</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>{{item5}}</td>
+                    <td>{{type5}}</td>
+                    <td>{{result5}}</td>
+                    <td>{{dissmis5}} Times</td>
+                </tr>
+            </tbody>
+        </table>
+        <h4 class="pull-right">
+            Score: {{count}}/ 5
+        </h4>
+    </div>
+</div>
+{% endfor %}
+<!-- /.row -->
+
+</div>
+<script>
+
+       
+      
+      </script>
+<!-- /.row -->
+{% endblock %}

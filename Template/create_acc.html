@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+<!-- Page Heading -->
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="row">
+<div class="col-lg-12">
+    <h1 class="page-header">
+        Student Account Creation
+    </h1>
+</div>
+</div>
+{%if error %}
+<div class="alert alert-warning alert-dismissible fade in">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Warning!</strong> {{msg}}
+</div>
+{% endif %}
+<div class="row">
+<div class="col-lg-6">
+    <div class="panel tabbed-panel panel-default">
+        <div class="panel-heading clearfix">
+            <div class="panel-title pull-left">Quiz History Tab</div>
+                <div class="pull-right">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab-default-1" data-toggle="tab">N1</a></li>
+                        <li><a href="#tab-default-2" data-toggle="tab">ZC11</a></li>
+                        <li><a href="#tab-default-3" data-toggle="tab">ZT11</a></li>
+                        <li><a href="#tab-default-4" data-toggle="tab">ZT12</a></li>
+                        <li><a href="#tab-default-5" data-toggle="tab">ZT13</a></li>
+                        <!-- <li class="dropdown">
+                            <a href="#" data-toggle="dropdown">More <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                            </ul>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+
+        <div class="tab-content">
+            <div class="tab-pane fade in active text-center" id="tab-default-1">
+                <div class="table-responsive">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead >
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">Fullname</th>
+                                    <th class="text-center">Section</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if AC1 %}
+                                {% for i in fullname %}
+                                    <tr align="center">
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{ i.Lname }}, {{i.Fname}}</td>
+                                        <td>{{i.section}}</td>
+                                        <!-- <td>{{ day.Student_Age }}</td> -->
+                                        <!-- <form action="" method="POST">
+                                            <input type="hidden" name="SiD" value="{{ slist }}"> -->
+                                            <td> <a href="/marlin/Delete/{{ i.UserToken }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to Delete this account?');">Delete</a>
+                                                <!-- <button type="button" class="btn btn-warning">Update</button> -->
+                                            </td>
+                                        <!-- </form> -->
+                                    </tr>
+                                {% endfor %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        {% if AC1  is False%}
+                            <div class="text-center"><h4> No Student Currently Enrolled</h4></div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade text-center" id="tab-default-2">
+                <div class="table-responsive">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead >
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">Fullname</th>
+                                    <th class="text-center">Section</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in fullname1 %}
+                                {% if AC2  %}
+                                    <tr align="center">
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{ i.Lname }}, {{i.Fname}}</td>
+                                        <td>{{i.section}}</td>
+                                        <!-- <td>{{ day.Student_Age }}</td> -->
+                                        <!-- <form action="" method="POST">
+                                            <input type="hidden" name="SiD" value="{{ slist }}"> -->
+                                            <td> <a href="/marlin/Delete/{{ i.UserToken }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to de;ete this account?');">Delete</a>
+                                                <!-- <button type="button" class="btn btn-warning" >Update</button> -->
+                                            </td>
+                                        <!-- </form> -->
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% if AC2  is False%}
+                            <div class="text-center"> <h4>No Student Currently Enrolled</h4></div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade text-center" id="tab-default-3">
+                <div class="table-responsive">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead >
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">Fullname</th>
+                                    <th class="text-center">Section</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if AC3 %}
+                                {% for i in fullname2 %}
+                                    <tr align="center">
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{ i.Lname }}, {{i.Fname}}</td>
+                                        <td>{{i.section}}</td>
+                                        <!-- <td>{{ day.Student_Age }}</td> -->
+                                        <!-- <form action="" method="POST">
+                                            <input type="hidden" name="SiD" value="{{ slist }}"> -->
+                                            <td> <a href="/marlin/Delete/{{ i.UserToken }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this account?');">Delete</a>
+                                                <!-- <button type="button" class="btn btn-warning">Update</button> -->
+                                            </td>
+                                        <!-- </form> -->
+                                    </tr>
+                                {% endfor %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        {% if AC3 is False %}
+                        <h4> No Student Currently Enrolled </h4>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade text-center" id="tab-default-4">
+                <div class="table-responsive">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead >
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">Fullname</th>
+                                    <th class="text-center">Section</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    {% if AC4 %}
+                                {% for i in fullname3 %}
+                                    <tr align="center">
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{ i.Lname }}, {{i.Fname}}</td>
+                                        <td>{{i.section}}</td>
+                                        <!-- <td>{{ day.Student_Age }}</td> -->
+                                        <!-- <form action="" method="POST">
+                                            <input type="hidden" name="SiD" value="{{ slist }}"> -->
+                                            <td> <a href="/marlin/Delete/{{ i.UserToken }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this account?');">Delete</a>
+                                                <!-- <button type="button" class="btn btn-warning">Update</button> -->
+                                            </td>
+                                        <!-- </form> -->
+                                    </tr>
+                                {% endfor %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        {% if AC4 is False %}
+                        <h4> No Student Currently Enrolled  </h4>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade text-center" id="tab-default-5">
+                <div class="table-responsive">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead >
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">Fullname</th>
+                                    <th class="text-center">Section</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    {% if AC5 %}
+                                {% for i in fullname4 %}
+                                    <tr align="center">
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{ i.Lname }}, {{i.Fname}}</td>
+                                        <td>{{i.section}}</td>
+                                        <!-- <td>{{ day.Student_Age }}</td> -->
+                                        <!-- <form action="" method="POST">
+                                            <input type="hidden" name="SiD" value="{{ slist }}"> -->
+                                            <td> <a href="/marlin/Delete/{{ i.UserToken }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this account?');">Delete</a>
+                                                <!-- <button type="button" class="btn btn-warning" >Update</button> -->
+                                            </td>
+                                        <!-- </form> -->
+                                    </tr>
+                                {% endfor %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        {% if AC5 is False %}
+                        <h4> No Student Currently Enrolled  </h4>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<form action="/marlin/InsertUser/" method="post" class="form-group">
+    <div class="col-lg-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Registration Form</h3>
+            </div>
+            <div class="panel-body">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="col-lg-6" style="margin-top: 15px; ">
+                        {{ field.errors }}
+                        {{ field.label_tag }} {{ field }}
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    {% for field in form2 %}
+                    <div class="col-lg-6" style="margin-top: 15px; ">
+                        {{ field.errors }}
+                        {{ field.label_tag }} {{ field }}
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <hr>
+
+                </div>
+                <hr>
+                <div class="panel-body">
+                    {% for field in form3 %}
+                    <div class="col-lg-6" style="margin-top: 15px; ">
+                        {{ field.errors }}
+                        {{ field.label_tag }} {{ field }}
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="text-center">
+                    <br>
+                    <input type="submit" value="Save" class="btn btn-success" onclick="return confirm('Are you sure you want to Add this account?');">
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+    <!-- /.row -->
+
+{% endblock %}

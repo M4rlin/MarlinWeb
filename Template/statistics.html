@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+<!-- Page Heading -->
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            {% if request.session.type == "Admin" %}
+                Quiz Topic: <small>{{ Name}} - {{section}}</small>
+            {% elif request.session.type == "Teacher" %}
+                Quiz Topic: <small>{{ Name}} - {{section}}</small>
+            {% endif%}
+        </h1>
+       <ol class="breadcrumb">
+            <li>
+                <i class="fas fa-bar-chart"></i> Item Statistics</a>
+            </li>
+            <li class="active">
+                {% if request.session.type == "Admin" %}
+                <i class="fas fa-list-alt"></i><a href="/marlin/StatsOfAllItems/{{section}}/{{subject}}/{{ date }}"> Student Item Summary</a>
+                {% endif %}
+                {% if request.session.type == "Teacher" %}
+                <i class="fas fa-list-alt"></i><a href="/marlin/StatsOfAllItems/{{section}}/{{subject}}/{{ date }}"> Student Item Summary</a>
+                {% endif %}
+            </li>
+            <li class="active pull-right">
+                {% if request.session.type == "Admin" %}
+                <i class="fa fa-refresh"></i><a href="/marlin/Graphs/{{section}}/{{subject}}/{{ date }}"> Refresh</a>
+                {% endif %}
+                {% if request.session.type == "Teacher" %}
+                <i class="fa fa-refresh"></i><a href="/marlin/Graphs/{{section}}/{{subject}}/{{ date }}"> Refresh</a>
+                {% endif %}
+            </li>
+        </ol>
+    </div>
+</div>
+<!-- /.row -->
+
+
+<div class="row">
+    <div class="col-lg-6">
+        
+        <h2>Item Statistics </h2> 
+        <!-- {% if request.session.type == "Admin" %}
+        <a href="/Send/{{date}}">Send Random Question</a> <br>
+        {% endif %} -->
+        <br>
+    </div>    
+</div>
+<div class="row">
+     {% if ctr == 5 %}
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"> 1.  <a href="/marlin/Items/{{section}}/{{subject}}/{{date}}/Item1"> {{ item1 }} </a> 
+                    <!-- <a href="" class="pull-right"> <i class="fa fa-paper-plane"></i> Send</a>   -->
+                </h3>
+
+            </div>
+            <div class="panel-body">
+                <div id="container" >
+                    <canvas id="myChart" width="400" height="280"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">2.  <a href="/marlin/Items/{{section}}/{{subject}}/{{date}}/Item2"> {{ item2 }} </a>
+                     <!-- <a href="" class="pull-right"> <i class="fa fa-paper-plane"></i> Send</a> -->
+                    </h3>
+            </div>
+            <div class="panel-body">
+                <div id="container" >
+                    <canvas id="myChart1" width="400" height="280"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"> 3.  <a href="/marlin/Items/{{section}}/{{subject}}/{{date}}/Item3"> {{ item3 }} </a>
+                    <!-- <a href="" class="pull-right"> <i class="fa fa-paper-plane"></i> Send</a> -->
+                </h3>
+                <!-- <p>{{ ctr }}</p> -->
+            </div>
+            <div class="panel-body">
+                <div id="container" >
+                    <canvas id="myChart3" width="400" height="280"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">4.  <a href="/marlin/Items/{{section}}/{{subject}}/{{date}}/Item4"> {{ item4 }} </a> 
+                    <!-- <a href="" class="pull-right"> <i class="fa fa-paper-plane"></i> Send</a> -->
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div id="container" >
+                    <canvas id="myChart4" width="400" height="280"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">5.  <a href="/marlin/Items/{{section}}/{{subject}}/{{date}}/Item5"> {{ item5 }} </a>
+                    <!-- <a href="" class="pull-right"> <i class="fa fa-paper-plane"></i> Send</a>  -->
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div id="container" >
+                    <canvas id="myChart5" width="400" height="280"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+<!-- /.row -->
+
+<!-- /.row -->
+
+{% endblock %}

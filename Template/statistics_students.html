@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+<!-- Page Heading -->
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Quiz Topic: <small>{{Topic}} - {{sections}}</small>
+        </h1>
+    </div>
+    <div class="col-lg-12">
+        
+        <a href="/marlin/Graphs/{{sections}}/{{subject}}/{{date}}" class="btn btn-default btn-md">&laquo; Go Back</a>
+    </div>
+</div>
+<!-- /.row -->
+<br>
+
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Item Information and Legends</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-lg-7">
+                        <h4><strong>Question:</strong> {{ question }}</h4>
+                        {% if  Qtype == 'MC' %}
+                            <h4><strong>Type:</strong> Multiple Choice</h4>
+                        {% elif  Qtype == 'I' %}         
+                            <h4><strong>Type:</strong> Identification</h4>
+                        {% elif  Qtype == 'TF' %}       
+                            <h4><strong>Type:</strong> True or False</h4>
+                        {% endif %}                 
+                        <h4><strong>Date: </strong>{{ date }}</h4>                
+                </div>
+                <div class="mycontent-left">
+                    <div class="col-lg-4">
+                            <p> <i class="fa fa-close"></i> = Incorrectly Answered</p>
+                    
+                            <p> <i class="fa fa-check-circle"></i>  = Correctly Answered</p>                    
+                    
+                            <p> -  = Not yet Answered </p>                                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Table of Students</h3>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">          
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th align="center">#</th>
+                            <th>Name</th>
+                            <th>Dissmised Times</th>
+                            <th>Status of the Item </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for lname,fname,ctr,c in names %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ fname }}, {{ lname }}</td>
+                                <td>{{ctr}}</td>
+                                {%if c == '0'%}
+                                    <td><p> <i class="fa fa-check-circle"></i></p></td>
+                                {%elif c == '1'%}
+                                    <td><p> <i class="fa fa-close"></i></p></td>
+                                {%else%}
+                                    <td>{{c}}</td>
+                                {%endif%}
+
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="col-lg-4">
+        <div id="container" >
+            <canvas id="myChart6" width="400" height="280"></canvas>
+        </div>
+    </div>     -->
+</div>
+
+<!-- /.row -->
+
+<!-- /.row -->
+{% endblock %}

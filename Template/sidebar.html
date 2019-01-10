@@ -1,0 +1,73 @@
+{% load staticfiles %}
+<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav side-nav">
+        <li>
+            <img height="170px" width="auto" src="{% static 'img/marlin.png' %}" alt="Avatar woman" align="center" style="display:block; margin:auto; margin:30px 20px; ">
+        </li>
+        <li style="float:center;padding:15px;text-align: center;">
+            <!-- <li class="text-center"> -->
+                <h3 style="color: #9d9d9d; margin-top: -20px; ">{{ request.session.lname }}, {{ request.session.fname }}</h3>
+            </li>
+            <li>
+                <a href="\marlin\Quiz"><i class="fas fa-pencil-ruler"></i> Quiz Creation</a>
+            </li>
+            <li>
+                <a href="\marlin\History"><i class="fa fa-bar-chart"></i> Quiz History</a>
+            </li>
+        {% if request.session.type == "Teacher" %}
+        <li>
+            <li>
+                <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i class="fa fa-list"></i> Class List <i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="demo1" class="collapse">
+                    {% for i in listSection %}
+                    <li>
+                        <a href="\marlin\ClassList/{{i}}"><i class="fab fa-odnoklassniki"> {{i}}</i></a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </li>
+        {% endif %}
+
+        {% if request.session.type == "Admin" %}
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fas fa-user-alt"></i> Manage Accounts <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="demo" class="collapse">
+                <li>
+                    <a href="\marlin\AddUser"><i class="far fa-user"></i> Student Accounts</a>
+                </li>
+                <li>
+                    <a href="\marlin\AddUserTeacher"><i class="far fa-user"></i> Instructor Accounts</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="\marlin\Search"><i class="glyphicon glyphicon-search"></i> Advanced Search</a>
+        </li>
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i class="fa fa-list"></i> Class List <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="demo1" class="collapse">
+                <li>
+                    <a href="\marlin\ClassList/ZT11"><i class="fab fa-odnoklassniki"></i> ZT11</a>
+                </li>
+                <li>
+                    <a href="\marlin\ClassList/N1"><i class="fab fa-odnoklassniki"></i> N1</a>
+                </li>
+                <li>
+                    <a href="\marlin\ClassList/ZC11"><i class="fab fa-odnoklassniki"></i> ZC11</a>
+                </li>
+                <li>
+                    <a href="\marlin\ClassList/ZT12"><i class="fab fa-odnoklassniki"></i> ZT12</a>
+                </li>
+                <li>
+                    <a href="\marlin\ClassList/ZT13"><i class="fab fa-odnoklassniki"></i> ZT13</a>
+                </li>
+            </ul>
+            </li>
+        <li>
+             <!-- <a href="/History"><i classK="fas fa-comments"></i> Feedbacks    </a> -->
+         </li>
+        {% endif %}
+    </ul>
+</div>

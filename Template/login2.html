@@ -1,0 +1,188 @@
+
+<html lang="en">
+{% load staticfiles %}
+
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Welcome to MARLIN </title>
+    <link rel="icon" type="image/ico" href="{% static 'img/marlin.png' %}"  />
+
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Barlow|Barlow+Condensed|Barlow+Semi+Condensed|Oswald" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+
+    <!-- Custom CSS
+    <link href="{% static 'css/sb-admin.css' %}" rel="styleshttps://images.pexels.com/photos/312105/pexels-photo-312105.jpeg?auto=compress&cs=tinysrgb&h=650&w=940heet"> -->
+    <style>
+        body{
+            /*background-color: #C0C0C0;*/
+            background-color: white;
+            /* filter: blur(5px); */
+            font-family: 'Barlow', sans-serif !important;
+        }
+        #username{
+            border-radius: 10px;
+            color: black;
+        }
+        footer{
+            background: #101010;
+            color: white;
+            height: auto;
+            bottom: 0;
+            width: 100%;
+        }
+        .suggest_form{
+            color: white;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="container-fluid">
+    <div class="row mt-5">
+            <div class="col-sm-4 offset-sm-4 text-center">
+                <h1 style="margin-top: 65px; margin-left: -50px"><img height="160px" width="auto" src="{% static 'img/marlin.png' %}" alt="Avatar woman" ><span style="color:#0080ff;">M</span><span style="color: #101010">ARLIN</span></h1>
+
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-sm-5 offset-sm-4 text-center">
+                <div class="col-lg-7 text-center" style="margin-left: 60px;">
+                    <form action="PostLogin" method="post" class="form-group">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        {{ field.errors }}
+                        <br>
+                        {{ field }}
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                        {% endfor %}
+                        <br>
+                        <input type="submit" value="Login" class="btn btn-default" style="background-color: #101010; color: white;border-radius: 10px;width: 280px;"/>
+                    </form>
+                    <!-- <a href="#">Forgot Password</a> -->
+                     <!--<p>
+                        <strong>MARLIN</strong> is still growing to withstand strong storms. Please stand by for a bigger and stronger Marlin.
+                    </p>-->
+               </div>
+
+                {% if error %}
+                 <div class="col-lg-10">
+                    <div class="alert alert-danger alert-dismissible fade show text-center" >
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                         Wrong Email/Password
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+    <br>
+    <form action="/FeedBack/" method="POST">
+        {% csrf_token %}
+<!--
+<footer class="page-footer font-small blue pt-4 mt-4">
+
+
+    <div class="container-fluid text-center text-md-left">
+
+
+      <div class="row">
+
+
+        <div class="col-md-6 mt-md-0 mt-3">
+
+
+          <h5 class="text-uppercase">About MARLIN:</h5>
+          <p>......</p>
+
+        </div>
+
+
+        <hr class="clearfix w-100 d-md-none pb-3">
+
+
+        <div class="col-md-3 mb-md-0 mb-3">
+
+            <h5 class="text-uppercase">Contact Us</h5>
+
+            <ul class="list-unstyled">
+                <li>
+                    <strong>{{ suggest.email.label }}:</strong>
+                    <br>{{ suggest.email }}
+                    {% if suggest.email.help_text %}
+                        <p class="help">{{ suggest.email.help_text|safe }}</p>
+                    {% endif %}
+              </li>
+              <li>
+                    <strong>{{ suggest.subject.label }}:</strong>
+                    <br>{{ suggest.subject }}
+                    {% if suggest.subject.help_text %}
+                        <p class="help">{{ suggest.subject.help_text|safe }}</p>
+                    {% endif %}
+              </li>
+
+            </ul>
+
+          </div>
+
+          <div class="col-md-3 mb-md-0 mb-3">
+
+
+
+                <ul class="list-unstyled">
+                   <li>
+                        <strong>{{ suggest.suggestion.label }}:</strong>
+                        <br>{{ suggest.suggestion }}
+                        {% if suggest.suggestion.help_text %}
+                            <p class="help">{{ suggest.suggestion.help_text|safe }}</p>
+                        {% endif %}
+                    </li>
+                    <br>
+                    <li>
+                        <input type="submit" class="btn btn-default" value="Send Feedback">
+                    </li>
+
+                </ul>
+
+              </div>
+
+
+        </form>
+
+
+    </div>
+
+
+    <div class="footer-copyright text-center py-3">© 2018 Copyright:
+        Marlin Developers (Herras,Abanes,Del Rosario)
+    </div>
+
+
+</footer>
+</div>
+</footer>
+-->
+  <!-- Footer -->
+  <!-- Footer -->
+</body>
+</html>

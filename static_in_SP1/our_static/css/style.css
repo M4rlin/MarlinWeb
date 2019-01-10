@@ -1,0 +1,72 @@
+.split {
+    height: 100%;
+    width: 70%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+.split1 {
+    height: 100%;
+    width: 30%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  /* Control the left side */
+  .left {
+    left: 0;
+    background-image: url("../img/bg-1.png");
+    background-size: 85%;
+    background-position: -200px 50px; 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #111;
+  }
+  
+  /* Control the right side */
+  .right {
+    right: 0;
+    background: linear-gradient(to left, #6e6e6c -35%, #222222  94%);
+    
+  }
+
+  .centered {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  /* Style the image inside the centered container, if needed */
+  .center img {
+    width: 150px;
+    border-radius: 30%;
+    width: 60%;
+    height: auto;
+  }
+
+  .center {
+    position: relative;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    text-align: center;
+}
+.center1 {
+  position: relative;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  text-align: center;
+}
+
+.pic{
+  /* background-image: url('img_flowers.jpg'); */
+  background-image: url("../img/bg-1.png");
+}
