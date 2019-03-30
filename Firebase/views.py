@@ -2904,22 +2904,22 @@ def ImserTeacher(request):
                 request.session['section'] = i
                 listSection.append(i)
 
-        context = {
-            "t":True,
-            "form": LoginForm(),
-            "Sec":TeacherForm(),
-            "list_Accounts":list_Accounts,
-            "form2": UserForm(),
-            "form3": PreferedTimeForm(),
-            "email": request.session['email'],
-            "section":request.session['section'],
-            "title":"Marlin: Instructor Account",
-            "listSection":listSection,
-            "error":True,
-            "msg":message
+            context = {
+                "t":True,
+                "form": LoginForm(),
+                "Sec":TeacherForm(),
+                "list_Accounts":list_Accounts,
+                "form2": UserForm(),
+                "form3": PreferedTimeForm(),
+                "email": request.session['email'],
+                "section":request.session['section'],
+                "title":"Marlin: Instructor Account",
+                "listSection":listSection,
+                "error":True,
+                "msg":message
 
-        }
-        return render(request,"create_acc_teacher.html",context)
+            }
+            return render(request,"create_acc_teacher.html",context)
     
         
 
